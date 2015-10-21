@@ -1,0 +1,10 @@
+argcomplete==1.0.0
+click==5.1
+colorama==0.3.3
+ecdsa==0.13
+Fabric==1.10.2
+kaptan==0.5.8
+paramiko==1.15.3
+pycrypto==2.6.1
+PyYAML==3.11
+tmuxp==0.9.1

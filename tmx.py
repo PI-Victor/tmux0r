@@ -1,6 +1,5 @@
 import click
-
-
+from collection import LibVirtConn
 @click.group()
 def cli():
     pass

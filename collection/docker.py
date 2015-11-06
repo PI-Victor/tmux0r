@@ -9,7 +9,7 @@ class DockerWrapper(object):
         pass
 
     def list_containers(self, image_id=None):
-        pass
+        return self.dockerhandler.containers()
 
     def stop_container(self):
         pass

@@ -1,10 +1,15 @@
 argcomplete==1.0.0
 click==5.1
 colorama==0.3.3
+docker-py==1.5.0
 ecdsa==0.13
 Fabric==1.10.2
 kaptan==0.5.8
+libvirt-python==1.2.20
 paramiko==1.15.3
 pycrypto==2.6.1
 PyYAML==3.11
+requests==2.8.1
+six==1.10.0
 tmuxp==0.9.1
+websocket-client==0.34.0

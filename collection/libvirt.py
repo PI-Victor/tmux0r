@@ -1,13 +1,18 @@
 import libvirt
 
 
+#keep this for now here
+DEFAULT_LIBVIRT_DRIVER = 'qemu:///system'
+
+
 class LibVirtConn(object):
     """Provides an interface to a libvirt
     connection
     """
     def __init__(self,libvirtdriver=None):
+        if libvirtdriver is None:
+            libvirtdriver = DEFAULT_LIBVIRT_DRIVER
         try:
-            libvirtdriver = 'qemu:///system'
             self.libvirthandler =  libvirt.open(libvirtdriver)
         except libvirt.libvirtError as e:
             print('Failed to connect to specified driver: %s' % libvirtdriver)
@@ -18,8 +23,9 @@ class LibVirtConn(object):
         """Returns a list of defined domains
         on the host that you can manipulate.
         """
-        libvirt_domains = [libvirt for libvirt in self.libvirthandler.listDomainsID() if self.libvirthandler]
-        return libvirt_domains
+        domain_ids = [libvirt for libvirt in self.libvirthandler.listAllDomains() if self.libvirthandler]
+        for domain_id in domain_ids:
+            print(domain_id.name())
 
     def setup_domain(self, domainid):
         """Setup a new domaing with the

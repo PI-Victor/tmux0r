@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<domain type="qemu">
+  <name>OpenShift test</name>
+  <memory> 131072 </memory>
+  <vcpu> 1 </vcpu>
+  <>
+</domain>

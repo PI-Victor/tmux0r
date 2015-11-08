@@ -9,8 +9,8 @@ class LibVirtConn(object):
     """Provides an interface to a libvirt
     connection
     """
-    _state = ['test', 'production']
-    def __init__(self,libvirtdriver=None):
+    _state = ['test', 'development']
+    def __init__(self, libvirtdriver=None):
         # if no specific hypervisor was given
         # connect to the user default one
         if libvirtdriver is None:

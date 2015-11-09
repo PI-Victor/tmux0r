@@ -13,7 +13,7 @@ def get_dir(subdir=None):
     return os.path.join(toplevel_dir, subdir)
 
 def download_image(image_url=None, image_name=None):
-    """download any specified valid image for virtlib
+    """download specified valid image for virtlib
      to ../images/. If none was specified use
      the current default one, which will probably
      be outdated fast since the datestamp is
@@ -26,7 +26,9 @@ def download_image(image_url=None, image_name=None):
         image_name = 'fedora23.qcow2'
     image_path = '{}/{}'.format(get_dir(_images_dir), image_name)
     try:
-        print("Downloading image %s \n Open a beer, this might take a while..." %image_url)
+        print("Downloading image %s \nOpen a beer, this might take a while..." %image_url)
         request.urlretrieve(image_url, image_path)
     except (error.URLError, ValueError) as e:
         print("Failed to download image %s" %e)
+
+    print("Image downloaded successfully to: %s" %image_path)

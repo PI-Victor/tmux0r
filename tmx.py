@@ -4,23 +4,21 @@ from collection import controller, utils
 
 
 @click.group()
-def cli():
+def vmcontext():
     pass
 
-@cli.command()
+@vmcontext.command()
 @click.option('--dirconfig')
 def list_domains(dirconfig):
     pass
 
-@cli.command()
+@vmcontext.command()
 @click.option('--url')
 @click.option('--image_name')
-def provision(url, image_name):
+def vmsetup(url, image_name):
     utils.download_image(url, image_name)
 
-@cli.command()
-def clean():
-    pass
+cli = click.CommandCollection(source=[vmctx, tmuxctx, dockerctx, openshiftx])
 
 if __name__ == '__main__':
     cli()

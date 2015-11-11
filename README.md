@@ -28,3 +28,10 @@ The boxes use a fedora 23 qcow image that needs to be pulled in first.
 Spawns a vm with the mounted openshift src folder inside it and runs the tests specified inside a config.yml file in config/.  
 Can attach to a container/virtual machine launching a tmux pane/window for either launching commands or tailing logs with a filter.
 e.g.: Watch for failed tests. It filters the output of the container/vm for the word 'failed'.
+
+
+See the docs:
+[Tmux Commands](docs/tmux.md)
+[Libvirt Commands](docs/libvirt.md)
+[Docker Commands](docs/docker.md)
+[Openshift Commands](docs/openshift.md)

@@ -31,7 +31,7 @@ e.g.: Watch for failed tests. It filters the output of the container/vm for the 
 
 
 See the docs:
-[Tmux Commands](docs/tmux.md)
-[Libvirt Commands](docs/libvirt.md)
-[Docker Commands](docs/docker.md)
-[Openshift Commands](docs/openshift.md)
+[Tmux Commands](docs/tmux.md)  
+[Libvirt Commands](docs/libvirt.md)  
+[Docker Commands](docs/docker.md)  
+[Openshift Commands](docs/openshift.md)  

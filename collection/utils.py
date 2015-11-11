@@ -1,5 +1,29 @@
 import os
+import uuid
+
 from urllib import request, error
+
+
+class YmlXmlWrapper(object):
+    """Read yml config files and write them to
+    a temporary xml that is used to privision
+    domains in libvirt.
+    """
+
+    def __init__(self, ymlfile):
+        config_path = get_dir("config")
+        self.ymlfile = os.path.join(config_path, ymlfile)
+
+    def read_yml(self):
+        pass
+
+    def write_to_xml(self):
+        pass
+
+    def get_tmp_file(self):
+        tempfile = "temp_xml_{}".format(uuid.uuid())
+        temppath = os.path.join("/tmp/", tempfile)
+        return temppath
 
 
 def get_dir(subdir=None):

@@ -26,6 +26,22 @@ class TmuxWrapper(object):
         """
         pass
 
+    def get_window_splits(self, windowid):
+        """Return the names of the window splits
+        for the given window
+        """
+        pass
+
+    def get_panes(self, sessionid):
+        """Return the name of the panes
+        """
+        pass
+
+    def attach_to_pane(self, paneid):
+        """Select a given pane
+        """
+        pass
+
     def pane_factory(self, windowid=None):
         """Create a new pane with given content
         if nothing is passed, just open a pane with bash
@@ -47,7 +63,7 @@ class TmuxWrapper(object):
         """Attach to a specific session"""
         pass
 
-    def filter_output(self, sessionid):
+    def filter_output(self, paneid=None, windowid=None):
         """Filter the output of a given window/pane
         This comes in handy for on-the-fly monitoring
         of tests in or outside of container/vms

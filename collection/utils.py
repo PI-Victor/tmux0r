@@ -15,9 +15,15 @@ class YmlXmlWrapper(object):
         self.ymlfile = os.path.join(config_path, ymlfile)
 
     def read_yml(self):
+        """Open and return a handler to a yml
+        config file.
+        """
         pass
 
     def write_to_xml(self):
+        """Convert a yml file to xml output and
+        write that xml to a temp directory.
+        """
         pass
 
     def get_tmp_file(self):

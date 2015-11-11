@@ -6,10 +6,19 @@ DEFAULT_USER_HYPERVISOR = 'qemu:///session'
 
 
 class LibVirtConn(object):
-    """Provides an interface to a libvirt
-    connection
+    """Provides a wrapper around libvirt.
+    With this you can:
+    Create new lxc container/vms.
+    Modify, Create, Snapshots, reset,
+    Resume, etc.
     """
     _state = ['test', 'development']
+    _tests_type = [
+        'unittests',
+        'extended',
+        'e2e'
+    ]
+
     def __init__(self, libvirtdriver=None):
         # if no specific hypervisor was given
         # connect to the user default one
@@ -67,9 +76,14 @@ class LibVirtConn(object):
         pass
 
     def get_domain_state(self):
+        """Get the state of a domain,
+        :suspended, turnedoff, running, etc.
+        """
         return self.libvirthandler.state()
 
     def get_domains(self):
+        """Get all domains for the current hypervisor.
+        """
         return self.libvirthandler.listAllDomains()
 
     def close_connection(self):

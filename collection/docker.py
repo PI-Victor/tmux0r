@@ -20,12 +20,18 @@ class DockerWrapper(object):
         :*args - stopped: list only stopped containers
         - running: list only running containers.
         """
-        return self.dockerhandler.containers()
+        return self.dockerhandler.containers(all=True)
 
-    def stop_container(self, containerid=None):
+    def stop_container(self, container_id=None):
         """Stop a given container, otherwise stop
         all running containers.
         """
+        pass
+
+    def export_container(self, container_id):
+        pass
+
+    def copy_from_container(self,container_id, container_path, host_path):
         pass
 
     def remove_container(self, container_id=None):
@@ -68,7 +74,7 @@ class DockerWrapper(object):
         """
         pass
 
-    def repack_image(self, image_name, copyto=None):
+    def repack_image(self, image_name, copy_to=None):
         """Repack a given image, and copy a file, or a
         list of files inside it
         """

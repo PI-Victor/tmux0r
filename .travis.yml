@@ -1,0 +1,10 @@
+language: python
+
+python:
+  - "3.3.4"
+
+install:
+  - pip3 install -r requirements.txt
+
+scipt:
+  - py.test

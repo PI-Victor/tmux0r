@@ -51,12 +51,16 @@ def download_image(image_url=None, image_name=None):
     """
     _images_dir = 'images'
     if image_url is None:
-        image_url = 'https://download.fedoraproject.org/pub/fedora/linux/releases/23/Cloud/x86_64/Images/Fedora-Cloud-Base-23-20151030.x86_64.qcow2'
+        image_url = 'https://download.fedoraproject.org/pub/fedora\
+                     /linux/releases/23/Cloud/x86_64/Images/Fedora-\
+                      \Cloud-Base-23-20151030.x86_64.qcow2'
+
     if image_name is None:
         image_name = 'fedora23.qcow2'
     image_path = '{}/{}'.format(get_dir(_images_dir), image_name)
     try:
-        print("Downloading image %s \nOpen a beer, this might take a while..." %image_url)
+        print("Downloading image %s \n \
+               Open a beer, this might take a while..." %image_url)
         request.urlretrieve(image_url, image_path)
     except (error.URLError, ValueError) as e:
         print("Failed to download image %s" %e)

@@ -15,17 +15,15 @@ class DockerWrapper(object):
 
     def list_containers(self, image_id=None, *args):
         """List all containers containers.
-        :image_id -  if it's passed, it shows containers
-        that are bound to that docker image.
-        :*args - stopped: list only stopped containers
-        - running: list only running containers.
+        :image_id: if it's passed, it shows containers that are bound to that
+         docker image.
+        :*args: - stopped: list only stopped containers
+        :running: list only running containers.
         """
         return self.dockerhandler.containers(all=True)
 
     def stop_container(self, container_id=None):
-        """Stop a given container, otherwise stop
-        all running containers.
-        """
+        """Stop a given container, otherwise stop all running containers"""
         pass
 
     def export_container(self, container_id):
@@ -35,66 +33,57 @@ class DockerWrapper(object):
         pass
 
     def remove_container(self, container_id=None):
-        """Remove a given container, otherwise remove
-        all containers, running or not.
+        """Remove a given container, otherwise remove all containers, running
+        or not.
         """
         pass
 
     def attach_to_container(self, container_id):
-        """Attach to a bash session of a given running
-        container
-        """
+        """Attach to a bash session of a given running container"""
         pass
 
     def run_container_command(self, container_id):
-        """Run a command inside a given container
-        and output the result.
+        """Run a command inside a given container and output the result.
         """
         pass
 
     def get_container_log(self, container_id):
-        """Return the full log of the specified
-        container.
-        """
+        """Return the full log of the specified container."""
         pass
 
     def refresh_image(self, image_name=None, registry_name=None):
-        """Pull the image with the :latest tag,
-        if no image is given, refresh all images.
-        :registry_name - from a given registry
-        default docker registry if not passed.
+        """Pull the image with the :latest tag, if no image is given,
+        refresh all images.
+        :registry_name: from a given registry default docker registry
+        if not passed.
         """
         pass
 
     def get_image(self, image_name, image_tag='latest', registry_name=None):
-        """Pull a given image with a given tag,
-        default is :latest.
-        :registry_name - default docker registry
-        if nothing is passed.
+        """Pull a given image with a given tag, default is :latest.
+        :registry_name - default docker registry if nothing is passed.
         """
         pass
 
     def repack_image(self, image_name, copy_to=None):
-        """Repack a given image, and copy a file, or a
-        list of files inside it
+        """Repack a given image, and copy a file, or a list of files inside it
         """
         pass
 
     def remove_images(self, image_id=None):
-        """If no image was specified, either remove a set
-        of images or all images
+        """If no image was specified, either remove a set of images or all
+         images.
         """
         pass
 
     def list_images(self, notag=False):
         """List all docker images
-        :notag - return a list of images with a <none>
-        tag so that they can be removed
+        :notag - return a list of images with a <none> tag so that they
+        can be removed
         """
         pass
 
     def tag_image(self, image_id, tag_name=None):
-        """Tag an image
-        """
+        """Tag an image"""
         default_tag = "latest"
         pass

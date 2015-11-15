@@ -6,22 +6,15 @@ DEFAULT_USER_HYPERVISOR = 'qemu:///session'
 
 
 class LibVirtConn(object):
-    """Provides a wrapper around libvirt.
-    With this you can:
-    Create new lxc container/vms.
-    Modify, Create, Snapshots, reset,
+    """Provides a wrapper around libvirt. With this you can:
+    Create new lxc container/vms. Modify, Create, Snapshots, reset,
     Resume, etc.
     """
     _state = ['test', 'development']
-    _tests_type = [
-        'unittests',
-        'extended',
-        'e2e'
-    ]
+    _tests_type = ['unittests', 'extended', 'e2e']
 
     def __init__(self, libvirtdriver=None):
-        # if no specific hypervisor was given
-        # connect to the user default one
+        # if no specific hypervisor was given connect to the user default one
         if libvirtdriver is None:
             libvirtdriver = DEFAULT_USER_HYPERVISOR
         try:
@@ -32,17 +25,15 @@ class LibVirtConn(object):
             self.libvirthandler = None
 
     def list_domains(self):
-        """Returns a list of defined domains
-        on the host that you can manipulate.
+        """Returns a list of defined domains on the host that you can
+         manipulate.
         """
         domain_ids = [libvirt for libvirt in self.libvirthandler.listAllDomains() if self.libvirthandler]
         domain_names = [domain for domain_id in domain_ids if domain_id]
         return domain_names
 
     def setup_domain(self, domain):
-        """Setup a new domaing with the
-        specified settings
-        """
+        """Setup a new domaing with the specified settings"""
         pass
 
     def destroy_domain(self, domain):
@@ -50,9 +41,7 @@ class LibVirtConn(object):
         pass
 
     def activate_network(self, domain):
-        """Create the network before
-        trying to run a domain
-        """
+        """Create the network before trying to run a domain"""
         network = self.libvirthandler.networkLookupByName(domain)
         if not network.netIsActive():
             network.create()
@@ -70,20 +59,17 @@ class LibVirtConn(object):
         pass
 
     def load_xml(self):
-        """Loads the predefined xml file into the
-        object for manipulation
-        """
+        """Loads the predefined xml file into the object for manipulation"""
         pass
 
     def get_domain_state(self):
         """Get the state of a domain,
-        :suspended, turnedoff, running, etc.
+        suspended, off, running, etc.
         """
         return self.libvirthandler.state()
 
     def get_domains(self):
-        """Get all domains for the current hypervisor.
-        """
+        """Get all domains for the current hypervisor"""
         return self.libvirthandler.listAllDomains()
 
     def close_connection(self):
@@ -119,9 +105,7 @@ class LibVirtConn(object):
         pass
 
     def save_domain(self, domain_id):
-        """Save the state of a domain and
-        shut it down
-        """
+        """Save the state of a domain and shut it down"""
         pass
 
     def reset_domain(self, domain):
@@ -129,7 +113,5 @@ class LibVirtConn(object):
         pass
 
     def resume_domain(self, domain):
-        """Resume a domain that has been
-        paused
-        """
+        """Resume a domain that has been paused"""
         pass

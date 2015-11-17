@@ -1,4 +1,5 @@
 import click
+from . import utils, docker, tmux, libvirt, openshift
 
 
 @click.group()
@@ -6,7 +7,7 @@ def vmctx():
     pass
 
 @vmctx.command()
-def vmlist(dirconfig):
+def vmlist():
     pass
 
 @vmctx.command()
@@ -22,7 +23,12 @@ def dockerctx():
 @dockerctx.command()
 @click.option('--pullimage')
 def pullimage(pullimage, registry=None):
-    print(pullimage)
+    pass
+
+@dockerctx.command()
+def images():
+    dock = docker.DockerWrapper()
+    print(dock)
 
 @click.group()
 def tmuxctx():

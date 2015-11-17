@@ -17,10 +17,13 @@ class DockerWrapper(object):
         """List all containers containers.
         :image_id: if it's passed, it shows containers that are bound to that
          docker image.
-        :*args: - stopped: list only stopped containers
+        :*args: stopped: list only stopped containers
         :running: list only running containers.
         """
-        return self.dockerhandler.containers(all=True)
+
+        return self.dockerhandler.containers(all=True,
+                                            latest=latest,
+                                            filters=filters)
 
     def stop_container(self, container_id=None):
         """Stop a given container, otherwise stop all running containers"""

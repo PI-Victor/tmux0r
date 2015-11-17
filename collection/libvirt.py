@@ -26,11 +26,10 @@ class LibVirtConn(object):
 
     def list_domains(self):
         """Returns a list of defined domains on the host that you can
-         manipulate.
+         use.
         """
         domain_ids = [libvirt for libvirt in self.libvirthandler.listAllDomains() if self.libvirthandler]
-        domain_names = [domain for domain_id in domain_ids if domain_id]
-        return domain_names
+        return [domain for domain_id in domain_ids if domain_id]
 
     def setup_domain(self, domain):
         """Setup a new domaing with the specified settings"""

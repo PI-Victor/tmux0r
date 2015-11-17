@@ -9,7 +9,8 @@ class TmuxWrapper(object):
     of the pocoo click lib.
     """
     def __init__(self, findid, createservice):
-        pass
+
+
 
     def window_factory(self, sessionid):
         """Create a new window split in a given window id."""

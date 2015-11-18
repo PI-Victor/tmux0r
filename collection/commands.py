@@ -34,6 +34,10 @@ def images():
 def tmuxctx():
     pass
 
+@tmuxct.command()
+def getwindows():
+    tmux.list_windows()
+
 @tmuxctx.command()
 @click.option('--openwindow')
 def openwindow(openwindow):

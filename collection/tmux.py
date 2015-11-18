@@ -1,4 +1,7 @@
 import tmuxp
+from tmuxp.exc import TmuxpException, TmuxSessionExists
+
+from collection import utils
 
 
 BASH_BIN_DEFAULT="/usr/bin/bash"
@@ -8,25 +11,31 @@ class TmuxWrapper(object):
     """A wrapper around the tmuxp lib to handle tmux from the cli with the help
     of the pocoo click lib.
     """
-    def __init__(self, findid, createservice):
+    def __init__(self, config_file=None):
+        self.server = tmuxp.Server()
 
-
+    def session_factory(self, session_name='session'):
+        """Create a new session with a given name.
+        :session_name: the name of the new sesion. To make sure it's unique,
+        adds a uuid to it.
+        """
+        self.server.new_session(utils.unique(session_name))
 
     def window_factory(self, sessionid):
         """Create a new window split in a given window id."""
         pass
 
-    def close_window_split(self, windowid=None):
+    def close_panes(self, paneid=None):
         """Close a particular split in the current window or close all of
          them if windowid is not passed
         """
         pass
 
-    def get_window_splits(self, windowid):
+    def get_panes(self, sessionid):
         """Return the names of the window splits for the given window"""
         pass
 
-    def get_panes(self, sessionid):
+    def get_windows(self, sessionid):
         """Return the name of the panes
         """
         pass
@@ -48,13 +57,30 @@ class TmuxWrapper(object):
         """
         pass
 
-    def get_active_sessions(self):
+    def get_sessions(self):
         """Return the number of active sessions"""
-        pass
+        sessions = []
+        try:
+            for s in self.server.list_sessions():
+                sessions.append(s)
+        except TmuxpException:
+            print("Couldn't find any available sessions")
+            sessions = None
 
-    def attach_to_session(self, sessionid):
-        """Attach to a specific session"""
-        pass
+        return sessions
+
+    def attach_to_session(self, sessionid=None):
+        """Attach to a specific session if none was provided
+        attach to the first listed one.
+        """
+        if not self.get_sessions():
+            return
+
+        if not sessionid:
+            sessionid = self.server.list_sessions()[0]
+
+        if self.get_sessions():
+            self.server.attach_session(sessionid)
 
     def filter_output(self, paneid=None, windowid=None):
         """Filter the output of a given window/pane. This comes in handy for

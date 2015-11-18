@@ -4,7 +4,7 @@ import uuid
 from urllib import request, error
 
 
-class YmlXmlWrapper(object):
+class YmlReader(object):
     """Read yml config files and write them to a temporary xml that is
     used to privision domains in libvirt.
     """
@@ -24,10 +24,11 @@ class YmlXmlWrapper(object):
         pass
 
     def get_tmp_file(self):
-        tempfile = "temp_xml_{}".format(uuid.uuid())
-        temppath = os.path.join("/tmp/", tempfile)
-        return temppath
+        tempfile = os.path.join("/tmp/", unique("temp_xml"))
+        return tempfile
 
+def unique(name):
+    return "{}_{}".format(name, uuid.uuid1())
 
 def get_dir(subdir=None):
     """Get the top level directory of the current project if no subdir has

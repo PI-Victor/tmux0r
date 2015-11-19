@@ -12,8 +12,8 @@ def vmlist():
 
 @vmctx.command()
 @click.option('--url')
-@click.option('--image_name')
-def vmsetup(url, image_name):
+@click.option('--image')
+def vmsetup(url, image):
     utils.download_image(url, image_name)
 
 @click.group()
@@ -39,11 +39,11 @@ def getwindows():
     tmux.list_windows()
 
 @tmuxctx.command()
-@click.option('--openwindow')
-def openwindow(openwindow):
+@click.option('--sessid')
+def tmuxow(sessid):
     pass
 
 @tmuxctx.command()
-@click.option('--openpane')
-def openpane(openpane):
+@click.option('--tmuxop')
+def openpane(tmuxop):
     pass

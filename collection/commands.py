@@ -28,13 +28,13 @@ def pullimage(pullimage, registry=None):
 @dockerctx.command()
 def images():
     dock = docker.DockerWrapper()
-    print(dock)
+    dock.list_images()
 
 @click.group()
 def tmuxctx():
     pass
 
-@tmuxct.command()
+@tmuxctx.command()
 def getwindows():
     tmux.list_windows()
 

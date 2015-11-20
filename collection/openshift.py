@@ -12,7 +12,7 @@ class OpenShiftWrapper(object):
     def create_project(self):
         pass
 
-    def run_tests(self, testname=None):
+    def run_tests(self, testname=None, suite='All'):
         pass
 
     def setup_registry(self, registry_name=None):

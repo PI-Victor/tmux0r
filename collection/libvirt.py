@@ -13,10 +13,7 @@ class LibVirtConn(object):
     _state = ['test', 'development']
     _tests_type = ['unittests', 'extended', 'e2e']
 
-    def __init__(self, libvirtdriver=None):
-        # if no specific hypervisor was given connect to the user default one
-        if libvirtdriver is None:
-            libvirtdriver = DEFAULT_USER_HYPERVISOR
+    def __init__(self, libvirtdriver=DEFAULT_USER_HYPERVISOR):
         try:
             self.libvirthandler =  libvirt.open(libvirtdriver)
             self.hypervisor = self.libvirthandler.getHostname()
@@ -28,7 +25,9 @@ class LibVirtConn(object):
         """Returns a list of defined domains on the host that you can
          use.
         """
-        domain_ids = [libvirt for libvirt in self.libvirthandler.listAllDomains() if self.libvirthandler]
+        domain_ids = [libvirt for libvirt
+                      in self.libvirthandler.listAllDomains()
+                      if self.libvirthandler]
         return [domain for domain_id in domain_ids if domain_id]
 
     def setup_domain(self, domain):

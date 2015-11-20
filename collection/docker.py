@@ -84,7 +84,10 @@ class DockerWrapper(object):
         :notag - return a list of images with a <none> tag so that they
         can be removed
         """
-        pass
+        for image_dict in self.dockerhandler.images():
+            for k,v in image_dict.items():
+                if k == "ParentId" or k == "RepoTags":
+                    print("{}: {}\n".format(k, v))
 
     def tag_image(self, image_id, tag_name=None):
         """Tag an image"""

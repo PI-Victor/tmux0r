@@ -1,7 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<domain type="qemu">
-  <name>OpenShift test</name>
-  <memory> 131072 </memory>
-  <vcpu> 1 </vcpu>
-  <>
-</domain>
+<domain type='kvm'>
+  <name>demo</name>
+  <uuid>c7a5fdbd-cdaf-9455-926a-d65c16db1809</uuid>
+  <memory>500000</memory>
+  <vcpu>1</vcpu>
+  .... the <os> block will vary per approach ...
+    <clock offset='utc'/>
+    <on_poweroff>destroy</on_poweroff>
+    <on_reboot>restart</on_reboot>
+    <on_crash>destroy</on_crash>
+    <devices>
+      <emulator>/usr/bin/qemu-kvm</emulator>
+      <disk type='file' device='disk'>
+ <source file='images/fedora23.qcow2'/>
+ <driver name='qemu' type='raw'/>
+ <target dev='hda'/>
+      </disk>
+      <interface type='bridge'>
+ <mac address='52:54:00:d8:65:c9'/>
+ <source bridge='br0'/>
+      </interface>
+      <input type='mouse' bus='ps2'/>
+      <graphics type='vnc' port='-1' listen='127.0.0.1'/>
+    </devices>
+  </domain>

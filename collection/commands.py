@@ -14,7 +14,12 @@ def vmlist():
 @click.option('--url')
 @click.option('--image')
 def vmsetup(url, image):
-    utils.download_image(url, image_name)
+    utils.download_image(url, image)
+
+@vmctx.command()
+@click.option('--hypervisor')
+def vmlist(hypervisor):
+    pass
 
 @click.group()
 def dockerctx():

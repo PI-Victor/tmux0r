@@ -1,7 +1,10 @@
 import libvirt
 
 
-# keep this for now here
+# keep this for now here.
+# the problem with this is that the default user session has very limited
+# access so it's not very flexible for setting network connections, etc.
+# the access should be passed as "qemu:///system"
 DEFAULT_USER_HYPERVISOR = 'qemu:///session'
 
 
@@ -15,19 +18,18 @@ class LibVirtConn(object):
 
     def __init__(self, libvirtdriver=DEFAULT_USER_HYPERVISOR):
         try:
-            self.libvirthandler =  libvirt.open(libvirtdriver)
-            self.hypervisor = self.libvirthandler.getHostname()
+            self.handler =  libvirt.open(libvirtdriver)
+            self.hypervisor = self.handler.getHostname()
         except libvirt.libvirtError as e:
             #print('Failed to connect to specified driver: %s' % libvirtdriver)
-            self.libvirthandler = None
+            self.handler = None
 
     def list_domains(self):
         """Returns a list of defined domains on the host that you can
          use.
         """
-        domain_ids = [libvirt for libvirt
-                      in self.libvirthandler.listAllDomains()
-                      if self.libvirthandler]
+        domain_ids = [libvirt for libvirt in self.handler.listAllDomains()
+                      if self.handler]
         return [domain for domain_id in domain_ids if domain_id]
 
     def setup_domain(self, domain):
@@ -40,7 +42,7 @@ class LibVirtConn(object):
 
     def activate_network(self, domain):
         """Create the network before trying to run a domain"""
-        network = self.libvirthandler.networkLookupByName(domain)
+        network = self.handler.networkLookupByName(domain)
         if not network.netIsActive():
             network.create()
 
@@ -64,15 +66,15 @@ class LibVirtConn(object):
         """Get the state of a domain,
         suspended, off, running, etc.
         """
-        return self.libvirthandler.state()
+        return self.handler.state()
 
     def get_domains(self):
         """Get all domains for the current hypervisor"""
-        return self.libvirthandler.listAllDomains()
+        return self.handler.listAllDomains()
 
     def close_connection(self):
         """Close current hypervisor connection"""
-        self.libvirthandler.close()
+        self.handler.close()
 
     def create_snapshot(self, domain):
         """Create a snapshot of the given domain"""

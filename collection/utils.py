@@ -40,19 +40,19 @@ def get_dir(subdir=None):
     return os.path.join(toplevel_dir, subdir)
 
 def download_image(image_url=None, image_name=None):
-    """Download specified valid image for virtlibto ../images/. If none was
+    """Download specified valid image for virtlib to ../images/. If none was
      specified use the current default one, which will probably be outdated
-     fast since the datestamp isincluded in the name.
+     fast since the datestamp is included in the name.
     """
     _images_dir = 'images'
     if image_url is None:
-        image_url = "https://download.fedoraproject.org/pub/fedora/linux/releases/23/Cloud/x86_64/Images/Fedora-Cloud-Base-23-20151030.x86_64.qcow2"
+        image_url = "https://none"
     if image_name is None:
         image_name = 'fedora23.qcow2'
     image_path = '{}/{}'.format(get_dir(_images_dir), image_name)
     try:
-        print("Downloading image %s \nOpen a beer, this might take a while..."
-               % image_url)
+        print("Downloading image {} to {} as {}\nThis might take a while..."\
+        .format(image_url, image_path, image_name))
         request.urlretrieve(image_url, image_path)
         print("Image downloaded successfully to: %s" % image_path)
     except (error.URLError, ValueError) as e:

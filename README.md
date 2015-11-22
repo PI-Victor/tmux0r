@@ -1,7 +1,8 @@
 # Tmux0r
 ##### Unofficial
 
-Status: Prototype
+Status: Prototype  
+Build Status: [![Circle CI](https://circleci.com/gh/PI-Victor/tmux0r/tree/master.svg?style=svg)](https://circleci.com/gh/PI-Victor/tmux0r/tree/master)
 
 Created to aid the development of [Openshift V3](https://github.com/openshift/origin).
 
@@ -24,10 +25,8 @@ Make sure you have development files for libvirt (libvirt-devel) installed.
 [openshift@origin tmux0r]$ python3 tmx.py vmsetup
 ```
 
-
 ---
 The boxes use a fedora 23 qcow image that needs to be pulled in first.
-
 
 #### Use cases:
 

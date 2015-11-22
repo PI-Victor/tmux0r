@@ -1,10 +1,19 @@
 language: python
 
 python:
-  - "3.3.4"
+  - "3.5"
+
+addons:
+  apt:
+    packages:
+      - python3-dev
+      - python-dev
+      - libvirt-dev
+      - python-libvirt
 
 install:
   - pip3 install -r requirements.txt
+  - pip3 install -r dev-requirements.txt
 
-scipt:
-  - py.test
+script:
+  - py.test test/

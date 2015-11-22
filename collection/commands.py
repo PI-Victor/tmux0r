@@ -41,7 +41,7 @@ def tmuxctx():
 
 @tmuxctx.command()
 def getwindows():
-    tmux.list_windows()
+    tmux.get_windows()
 
 @tmuxctx.command()
 @click.option('--sessid')

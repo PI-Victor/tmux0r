@@ -17,7 +17,7 @@ class TmuxWrapper(object):
         self.server = tmuxp.Server()
     def window_factory(self, session_id):
         """Create a new window in a given session."""
-        pass
+        print(session_id)
 
     def attach_to_window(self, window_id):
         """Attach to the given id."""
@@ -26,7 +26,9 @@ class TmuxWrapper(object):
     def get_windows(self, session_id):
         """Return the name of the windows for the given id.
         """
-        pass
+        print(s)
+        for s in self.server.sessions:
+            print(s)
 
     def pane_factory(self, session_id=None, window_id=None):
         """Create a new pane with given content if nothing is passed,

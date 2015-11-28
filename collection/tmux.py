@@ -15,9 +15,24 @@ class TmuxWrapper(object):
         """Create a new tmux server if none is available
         """
         self.server = tmuxp.Server()
-    def window_factory(self, session_id):
-        """Create a new window in a given session."""
-        print(session_id)
+
+    def window_factory(self, session_id, window_name='window', config=None):
+        """Create a new window in a given session.
+        :session_id: create a new window in the given session.
+        :window_name: prefix for the window name, to ensure it's unique,
+        a UUID is added at the end of the name.
+        :config: a windows configuration file (yml, json).
+        Returns a window instance.
+        """
+        # TODO: remember to launch a window config here, to create
+        # the window according to a yaml configuration.
+        try:
+            session = self.server.list_sessions()[session_id]
+        except IndexError:
+            print("Specified session, doesn't exist!")
+            return None
+
+        return session.new_window(utils.unique(window_name))
 
     def attach_to_window(self, window_id):
         """Attach to the given id."""
@@ -26,9 +41,16 @@ class TmuxWrapper(object):
     def get_windows(self, session_id):
         """Return the name of the windows for the given id.
         """
-        print(s)
+        windows = []
         for s in self.server.sessions:
-            print(s)
+            windows.append(s._windows)
+
+        return windows
+
+    def close_windows(self, window_id):
+        """Close a given window id, otherwise close all
+        """
+        pass
 
     def pane_factory(self, session_id=None, window_id=None):
         """Create a new pane with given content if nothing is passed,
@@ -65,28 +87,33 @@ class TmuxWrapper(object):
         if not self.get_sessions():
             return
 
-        if not sessionid:
-            sessionid = self.server.list_sessions()[0]
+        if not session_id:
+            session_id = self.server.list_sessions()[0]
 
         if self.get_sessions():
-            self.server.attach_session(sessionid)
+            self.server.attach_session(session_id)
 
     def get_sessions(self):
         """Return the number of active sessions"""
         sessions = []
         try:
             for s in self.server.list_sessions():
-                sessions.append(s)
+                sessions.append(s._session_id)
         except TmuxpException:
             print("Couldn't find any available sessions")
             sessions = None
 
         return sessions
 
-    def close_session(self, session_id=None):
+    def close_sessions(self, session_id=None):
         """Close given session, or close all.
         """
-        pass
+        if session_id is not None:
+            self.server.kill_session(session_id)
+            return
+
+        for s in self.get_sessions():
+            self.server.kill_session(s)
 
     def filter_output(self, pane_id=None, window_id=None):
         """Filter the output of a given window/pane. This comes in handy for

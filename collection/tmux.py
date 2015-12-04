@@ -35,16 +35,14 @@ class TmuxWrapper(object):
         return session.new_window(utils.unique(window_name))
 
     def attach_to_window(self, window_id):
-        """Attach to the given id."""
+        """Attach to the given window."""
         pass
 
     def get_windows(self, session_id):
         """Return the name of the windows for the given id.
         """
         windows = []
-        for s in self.server.sessions:
-            windows.append(s._windows)
-
+        [session for session in self.server.children if session]
         return windows
 
     def close_windows(self, window_id):
@@ -81,10 +79,12 @@ class TmuxWrapper(object):
         self.server.new_session(utils.unique(session_name))
 
     def attach_to_session(self, session_id=None):
-        """Attach to a specific session if none was provided
-        attach to the first listed one.
+        """Attach to session.
+        :session_id: attach to the specified session.
+        If nothing is passed, attach to the first active session.
         """
         if not self.get_sessions():
+            print("No sessions available!")
             return
 
         if not session_id:
@@ -98,7 +98,9 @@ class TmuxWrapper(object):
         sessions = []
         try:
             for s in self.server.list_sessions():
-                sessions.append(s._session_id)
+                # this is so dirty it makes my skin crawl!!!
+                session_int = int(s._session_id.strip('$'))
+                sessions.append(session_int)
         except TmuxpException:
             print("Couldn't find any available sessions")
             sessions = None
@@ -108,12 +110,16 @@ class TmuxWrapper(object):
     def close_sessions(self, session_id=None):
         """Close given session, or close all.
         """
-        if session_id is not None:
+        if session_id:
             self.server.kill_session(session_id)
             return
 
         for s in self.get_sessions():
-            self.server.kill_session(s)
+            try:
+                self.server.kill_session(s)
+            except TmuxpException:
+                print('Session unavailable')
+
 
     def filter_output(self, pane_id=None, window_id=None):
         """Filter the output of a given window/pane. This comes in handy for

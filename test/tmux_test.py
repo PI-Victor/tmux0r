@@ -13,6 +13,7 @@ def test_session_factory():
     tmwrap.session_factory()
     sessions = tmwrap.get_sessions()
     assert sessions is not None
+    tmwrap.close_sessions()
 
 def test_window_factory():
     for i in range(10):
@@ -22,8 +23,10 @@ def test_window_factory():
         tmwrap.window_factory(session)
 
     for s in tmwrap.get_sessions():
-        window = tmwrap.get_windows(s)
-        assert isinstance(window, tmuxp.window.Window)
+        windows = tmwrap.get_windows(s)
+        for w in windows:
+            assert isinstance(w, tmuxp.window.Window)
 
+    tmwrap.close_sessions()
 
-tmwrap.close_sessions()
+#tmwrap.close_sessions()
